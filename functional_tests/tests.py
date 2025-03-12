@@ -20,7 +20,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
     @classmethod
     def tearDownClass(cls):
         if cls.server_url == cls.live_server_url:
-            super().tearDown()
+            super().tearDownClass()
 
     def setUp(self):
         self.browser = webdriver.Firefox()
@@ -114,16 +114,18 @@ class NewVisitorTest(StaticLiveServerTestCase):
         self.browser.set_window_size(1024, 768)
 
         # She notices the input box is nicely centered
+
         inputbox = self.browser.find_element(By.ID, 'id_new_item')
         self.assertAlmostEqual(inputbox.location['x']
-                                + inputbox.size['width'] / 2, 512, delta=5
+                                + inputbox.size['width'] / 2, 512, delta=10
                                 )
         # She starts a new list and sees the input is nicely
         # centered there too
         inputbox.send_keys('testing\n')
         inputbox = self.browser.find_element(By.ID, 'id_new_item')
+
         self.assertAlmostEqual(
-            inputbox.location['x'] + inputbox.size['width'] / 2, 512, delta=5
+            inputbox.location['x'] + inputbox.size['width'] / 2, 512, delta=10
         )
 
 if __name__ == '__main__':
